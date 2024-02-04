@@ -1,0 +1,6 @@
+package mgu95.weather.enums;
+
+public enum AQI {
+
+    GOOD, MODERATE, UNHEALTHY_FOR_SENSITIVE_GROUP, UNHEALTHY, VERY_UNHEALTHY, HAZARDOUS;
+}
