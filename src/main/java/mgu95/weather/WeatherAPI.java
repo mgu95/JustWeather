@@ -46,87 +46,378 @@ public class WeatherAPI implements Weather{
                 }
             }
         }
-        return null;
+        throw new IllegalArgumentException();
     }
 
     @Override
     public Alert getAlert(String city, LocalDate date) {
+        //waiting for alerts
         return null;
     }
 
     @Override
     public Astronomy getAstronomy(String city, LocalDate date) {
-        return null;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.astronomy();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public Wind getWind(String city, LocalDateTime dateTime) {
         validator(city);
-        System.out.println("key=" + key);
-        boolean b = LocalDateTime.now().isAfter(forecast.updateDateTime().plusMinutes(15));
-        //czy od ostatniej aktualizacji minęło 15min?
-        System.out.println("b=" + b);
-        return null;
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.wind();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getMaxWindSpeed(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.maxWindSpeed();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public double getTemperature(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.temperature();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public double getRealFeelTemperature(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.realFeelTemperature();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getMaxTemperature(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.maxTemperature();
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getMinTemperature(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.minTemperature();
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getAverageTemperature(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.averageTemperature();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public String getCondition(String city, LocalDateTime dateTime) {
-        return null;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.condition();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public String getAverageCondition(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.averageCondition();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public int getCloudCover(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.cloudCover();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public int getChanceOfRain(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.chanceOfRain();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getDailyChanceOfRain(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.dailyChanceOfRain();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public int getChanceOfSnow(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.chanceOfSnow();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getDailyChanceOfSnow(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.dailyChanceOfSnow();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public double getRainPrecipitation(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.rainPrecipitation();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getTotalRainPrecipitation(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.totalRainPrecipitation();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public double getSnowPrecipitation(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.snowPrecipitation();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getTotalSnowPrecipitation(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.totalSnowPrecipitation();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public int getHumidity(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.humidity();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getAverageHumidity(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.averageHumidity();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public double getPressure(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.pressure();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public double getVisibility(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.visibility();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public double getAverageVisibility(String city, LocalDate date) {
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(date)) {
+                return day.averageVisibility();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public double getUvIndex(String city, LocalDateTime dateTime) {
-        return 0;
+        validator(city);
+        Day[] days = forecast.days();
+        for (Day day : days) {
+            if (day.date().isEqual(dateTime.toLocalDate())) {
+                Hour[] hours = day.hours();
+                for (Hour hour : hours) {
+                    if (hour.time().equals(dateTime.toLocalTime())) {
+                        return hour.uvIndex();
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     private void validator(String city) {
@@ -218,9 +509,11 @@ public class WeatherAPI implements Weather{
 
                 // To dodać jak będą alerty
                 JsonNode alerts = actualObj.get("alerts");
-                System.out.println(alerts.toString());
+
 
                 forecast = new Forecast(lastUpdateTime, city, country, days);
+                System.out.println(forecast.toString());
+                System.out.println(alerts.toString());
 
             } catch (Exception e) {
                 System.out.println("Something went wrong...");
